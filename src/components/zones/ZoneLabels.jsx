@@ -47,7 +47,7 @@ function ZoneLabels() {
             <ZoneLabel position={[9, 4.5, -3]} label="Commercial · Grove" color="#d4a574" />
             <ZoneLabel position={[-10, 4, 12]} label="Residential · Subdivisions" color="#b8956a" />
             <ZoneLabel position={[15, 3.5, 5]} label="ISF · Riverside" color="#ef4444" />
-            <ZoneLabel position={[-8, 3.5, 18]} label="ISF · Train Tracks" color="#ef4444" />
+            <ZoneLabel position={[-12, 3.5, 20]} label="ISF · Train Tracks" color="#ef4444" />
             <ZoneLabel position={[10, 8, 10]} label="Developments" color="#94a3b8" />
             <ZoneLabel position={[-30, 20, -30]} label="Mt. Makiling" color="#3a7a3a" />
         </group>

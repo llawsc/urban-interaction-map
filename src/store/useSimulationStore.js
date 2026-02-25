@@ -8,6 +8,10 @@ const useSimulationStore = create((set, get) => ({
     enrollment: 8000,
     isPlaying: false,
 
+    // UI state
+    isUIHidden: false,
+    showSummary: false,
+
     // Actor visibility
     actorVisibility: Object.fromEntries(ACTORS.map((a) => [a.id, true])),
 
@@ -24,6 +28,8 @@ const useSimulationStore = create((set, get) => ({
     setEnrollment: (val) => set({ enrollment: val }),
     togglePlay: () => set((s) => ({ isPlaying: !s.isPlaying })),
     stopPlay: () => set({ isPlaying: false }),
+    toggleUI: () => set((s) => ({ isUIHidden: !s.isUIHidden })),
+    toggleSummary: () => set((s) => ({ showSummary: !s.showSummary })),
 
     toggleActorVisibility: (actorId) =>
         set((s) => ({

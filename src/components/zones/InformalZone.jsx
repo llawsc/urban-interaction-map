@@ -5,7 +5,7 @@ import { computeZoneSizes, computeDisplacement } from '../../utils/simulation'
 
 // Two clusters: one near the river, one near the train tracks
 const RIVER_CENTER = [15, 0, 5]
-const TRACKS_CENTER = [-8, 0, 18]
+const TRACKS_CENTER = [-12, 0, 20]
 
 function InformalZone() {
     const timeStep = useSimulationStore((s) => s.timeStep)

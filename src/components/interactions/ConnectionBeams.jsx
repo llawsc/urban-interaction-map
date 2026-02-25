@@ -17,14 +17,13 @@ const ZONE_CENTERS = {
 }
 
 function ConnectionBeam({ relationship }) {
-    const lineRef = useRef()
+    const meshRef = useRef()
     const selectedRelationship = useSimulationStore((s) => s.selectedRelationship)
     const selectedActor = useSimulationStore((s) => s.selectedActor)
     const actorVisibility = useSimulationStore((s) => s.actorVisibility)
 
     const [actorA, actorB] = relationship.actors
-    const isActorVisible =
-        actorVisibility[actorA] && actorVisibility[actorB]
+    const isActorVisible = actorVisibility[actorA] && actorVisibility[actorB]
 
     const isRelevant =
         selectedRelationship === relationship.id ||
@@ -32,62 +31,56 @@ function ConnectionBeam({ relationship }) {
         selectedActor === actorB ||
         (!selectedActor && !selectedRelationship)
 
-    const startPos = ZONE_CENTERS[actorA] || [0, 2, 0]
-    const endPos = ZONE_CENTERS[actorB] || [0, 2, 0]
-
-    const curve = useMemo(() => {
-        const mid = [
-            (startPos[0] + endPos[0]) / 2,
-            Math.max(startPos[1], endPos[1]) + 3,
-            (startPos[2] + endPos[2]) / 2,
-        ]
-        return new THREE.QuadraticBezierCurve3(
-            new THREE.Vector3(...startPos),
-            new THREE.Vector3(...mid),
-            new THREE.Vector3(...endPos)
-        )
-    }, [startPos, endPos])
-
-    const points = useMemo(() => curve.getPoints(30), [curve])
-
-    useFrame((state) => {
-        if (!lineRef.current) return
-        const t = state.clock.elapsedTime
-
-        // Different animation based on interaction type
-        if (relationship.type === 'Conflict') {
-            lineRef.current.material.opacity = 0.3 + Math.sin(t * 4) * 0.3
-        } else if (relationship.type === 'Accommodation') {
-            lineRef.current.material.opacity = 0.3 + Math.sin(t * 2) * 0.2
-        } else {
-            lineRef.current.material.opacity = isRelevant ? 0.6 : 0.15
-        }
-    })
-
-    if (!isActorVisible) return null
-
     const isActive =
         selectedRelationship === relationship.id ||
         selectedActor === actorA ||
         selectedActor === actorB
 
+    const startPos = ZONE_CENTERS[actorA] || [0, 2, 0]
+    const endPos = ZONE_CENTERS[actorB] || [0, 2, 0]
+
+    // Create tube geometry for thick, visible beams
+    const tubeGeo = useMemo(() => {
+        const mid = [
+            (startPos[0] + endPos[0]) / 2,
+            Math.max(startPos[1], endPos[1]) + 4,
+            (startPos[2] + endPos[2]) / 2,
+        ]
+        const curve = new THREE.QuadraticBezierCurve3(
+            new THREE.Vector3(...startPos),
+            new THREE.Vector3(...mid),
+            new THREE.Vector3(...endPos)
+        )
+        return new THREE.TubeGeometry(curve, 32, 0.12, 6, false)
+    }, [startPos, endPos])
+
+    useFrame((state) => {
+        if (!meshRef.current) return
+        const t = state.clock.elapsedTime
+
+        if (relationship.type === 'Conflict') {
+            meshRef.current.material.opacity = 0.4 + Math.sin(t * 4) * 0.35
+        } else if (relationship.type === 'Accommodation') {
+            meshRef.current.material.opacity = 0.4 + Math.sin(t * 2) * 0.25
+        } else {
+            meshRef.current.material.opacity = isRelevant ? 0.75 : 0.2
+        }
+    })
+
+    if (!isActorVisible) return null
+
     return (
-        <line ref={lineRef}>
-            <bufferGeometry>
-                <bufferAttribute
-                    attach="attributes-position"
-                    count={points.length}
-                    array={new Float32Array(points.flatMap((p) => [p.x, p.y, p.z]))}
-                    itemSize={3}
-                />
-            </bufferGeometry>
-            <lineBasicMaterial
+        <mesh ref={meshRef} geometry={tubeGeo}>
+            <meshStandardMaterial
                 color={relationship.color}
                 transparent
-                opacity={isRelevant ? 0.6 : 0.1}
-                linewidth={isActive ? 3 : 1}
+                opacity={isRelevant ? 0.75 : 0.15}
+                emissive={relationship.color}
+                emissiveIntensity={isActive ? 0.6 : 0.2}
+                roughness={0.3}
+                metalness={0.1}
             />
-        </line>
+        </mesh>
     )
 }
 
