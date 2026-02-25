@@ -2,7 +2,7 @@ import { useMemo, memo } from 'react'
 import useSimulationStore from '../../store/useSimulationStore'
 import { computeZoneSizes } from '../../utils/simulation'
 
-const CENTER = [-2, 0, 12]
+const CENTER = [-10, 0, 12]
 
 function ResidentialZone() {
     const timeStep = useSimulationStore((s) => s.timeStep)
@@ -10,7 +10,7 @@ function ResidentialZone() {
     const zones = computeZoneSizes(timeStep, enrollment)
     const scale = zones.residential
 
-    // Positions relative to CENTER [-2, 0, 12]
+    // Positions relative to CENTER [-10, 0, 12]
     const houses = useMemo(
         () => [
             { pos: [-3, 0, -4], size: [2.5, 1.8, 2.5], color: '#b8956a' },
@@ -35,7 +35,7 @@ function ResidentialZone() {
                 <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
                     <planeGeometry args={[16, 14]} />
                     <meshStandardMaterial
-                        color="#3a5a2a"
+                        color="#4a7a3a"
                         roughness={0.9}
                         transparent
                         opacity={0.3}

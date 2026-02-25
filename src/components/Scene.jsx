@@ -43,13 +43,13 @@ function Scene() {
             dpr={[1, 1.5]}
         >
             {/* Lighting */}
-            <color attach="background" args={['#0a0e1a']} />
-            <fog attach="fog" args={['#0a0e1a', 50, 100]} />
-            <ambientLight intensity={0.4} color="#8899bb" />
+            <color attach="background" args={['#87CEEB']} />
+            <fog attach="fog" args={['#b0d8f0', 60, 120]} />
+            <ambientLight intensity={0.9} color="#fffbe6" />
             <directionalLight
-                position={[20, 30, 15]}
-                intensity={1.2}
-                color="#ffeedd"
+                position={[25, 40, 20]}
+                intensity={2.0}
+                color="#fff5e0"
                 castShadow
                 shadow-mapSize-width={2048}
                 shadow-mapSize-height={2048}
@@ -59,20 +59,23 @@ function Scene() {
                 shadow-camera-top={40}
                 shadow-camera-bottom={-40}
             />
-            <directionalLight position={[-10, 15, -10]} intensity={0.3} color="#88aaff" />
+            <directionalLight position={[-15, 20, -10]} intensity={0.5} color="#aaccff" />
             <hemisphereLight
-                skyColor="#334477"
-                groundColor="#1a3a1a"
-                intensity={0.4}
+                skyColor="#87CEEB"
+                groundColor="#4a8a3a"
+                intensity={0.6}
             />
 
             {/* Sky */}
             <Sky
                 distance={450}
-                sunPosition={[20, 8, -15]}
-                inclination={0.45}
+                sunPosition={[30, 40, -10]}
+                inclination={0.49}
                 azimuth={0.25}
-                rayleigh={0.5}
+                rayleigh={0.8}
+                turbidity={4}
+                mieCoefficient={0.003}
+                mieDirectionalG={0.8}
             />
 
             {/* Controls */}

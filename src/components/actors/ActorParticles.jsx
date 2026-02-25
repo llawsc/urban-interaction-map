@@ -8,8 +8,8 @@ import { ACTORS, ACTOR_MAP } from '../../data/actors'
 const ZONE_CENTERS = {
     campus: [-12, 0.5, -9],
     commercial: [9, 0.5, -3],
-    residential: [-2, 0.5, 12],
-    informal: [17.5, 0.5, 11],
+    residential: [-10, 0.5, 12],
+    informal: [15, 0.5, 5],
     development: [10, 0.5, 10],
 }
 

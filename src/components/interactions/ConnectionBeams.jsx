@@ -10,9 +10,9 @@ const ZONE_CENTERS = {
     students: [-10, 2, -7],
     vendors: [9, 2, -3],
     lgu: [9, 2, -5],
-    isf: [17.5, 2, 11],
-    residents: [-2, 2, 12],
-    landowners: [-4, 2, 10],
+    isf: [15, 2, 5],
+    residents: [-10, 2, 12],
+    landowners: [-8, 2, 10],
     developers: [10, 2, 10],
 }
 

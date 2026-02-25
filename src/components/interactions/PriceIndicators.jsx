@@ -52,7 +52,7 @@ function PriceIndicators() {
     return (
         <group>
             <PriceTag
-                position={[-3, 4, 10]}
+                position={[-10, 4, 10]}
                 value={rent.toLocaleString()}
                 label="AVG RENT"
                 color="#8b5cf6"

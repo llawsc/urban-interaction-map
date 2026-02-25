@@ -6,8 +6,9 @@ import useSimulationStore from '../../store/useSimulationStore'
 const ZONE_CENTERS = {
     campus: [-12, 4.5, -9],
     commercial: [9, 4, -3],
-    residential: [-2, 3.5, 12],
-    informal: [17.5, 3, 11],
+    residential: [-10, 3.5, 12],
+    informal_river: [15, 3, 5],
+    informal_tracks: [-8, 3, 18],
     development: [10, 6, 10],
 }
 
@@ -44,8 +45,9 @@ function ZoneLabels() {
         <group>
             <ZoneLabel position={[-12, 5.5, -9]} label="UPLB Campus" color="#8b7355" />
             <ZoneLabel position={[9, 4.5, -3]} label="Commercial · Grove" color="#d4a574" />
-            <ZoneLabel position={[-2, 4, 12]} label="Residential · Subdivisions" color="#b8956a" />
-            <ZoneLabel position={[17.5, 3.5, 11]} label="Informal Settlements" color="#ef4444" />
+            <ZoneLabel position={[-10, 4, 12]} label="Residential · Subdivisions" color="#b8956a" />
+            <ZoneLabel position={[15, 3.5, 5]} label="ISF · Riverside" color="#ef4444" />
+            <ZoneLabel position={[-8, 3.5, 18]} label="ISF · Train Tracks" color="#ef4444" />
             <ZoneLabel position={[10, 8, 10]} label="Developments" color="#94a3b8" />
             <ZoneLabel position={[-30, 20, -30]} label="Mt. Makiling" color="#3a7a3a" />
         </group>

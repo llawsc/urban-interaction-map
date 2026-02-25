@@ -3,7 +3,9 @@ import { useFrame } from '@react-three/fiber'
 import useSimulationStore from '../../store/useSimulationStore'
 import { computeZoneSizes, computeDisplacement } from '../../utils/simulation'
 
-const CENTER = [17.5, 0, 11]
+// Two clusters: one near the river, one near the train tracks
+const RIVER_CENTER = [15, 0, 5]
+const TRACKS_CENTER = [-8, 0, 18]
 
 function InformalZone() {
     const timeStep = useSimulationStore((s) => s.timeStep)
@@ -11,62 +13,91 @@ function InformalZone() {
     const zones = computeZoneSizes(timeStep, enrollment)
     const scale = zones.informal
     const displacement = computeDisplacement(timeStep)
-    const warningRef = useRef()
+    const warningRefRiver = useRef()
+    const warningRefTracks = useRef()
 
     useFrame((state) => {
-        if (warningRef.current) {
-            warningRef.current.material.opacity =
-                0.15 + Math.sin(state.clock.elapsedTime * 3) * 0.15 * displacement
-        }
+        const t = state.clock.elapsedTime
+        const pulse = 0.15 + Math.sin(t * 3) * 0.15 * displacement
+        if (warningRefRiver.current) warningRefRiver.current.material.opacity = pulse
+        if (warningRefTracks.current) warningRefTracks.current.material.opacity = pulse
     })
 
-    // Positions relative to CENTER [17.5, 0, 11]
-    const shelters = [
-        { pos: [-1.5, 0, -3], size: [1.2, 1, 1.2] },
-        { pos: [0.5, 0, -2.5], size: [1, 0.8, 1] },
-        { pos: [-0.5, 0, -1], size: [1.3, 0.9, 1.1] },
-        { pos: [1.5, 0, -0.5], size: [1.1, 1.1, 1] },
-        { pos: [-1, 0, 1], size: [1, 0.7, 1.2] },
-        { pos: [1, 0, 1], size: [1.2, 0.9, 1] },
-        { pos: [0, 0, 3], size: [1, 0.8, 1.1] },
+    // Shelters near the river (built on the creek bank)
+    const riverShelters = [
+        { pos: [-1.5, 0, -1], size: [1.2, 1, 1.2] },
+        { pos: [0.5, 0, -0.5], size: [1, 0.8, 1] },
+        { pos: [-0.5, 0, 1], size: [1.3, 0.9, 1.1] },
+        { pos: [1, 0, 1.5], size: [1.1, 1.1, 1] },
     ]
 
-    return (
-        <group position={CENTER}>
-            <group scale={[scale, scale, scale]}>
-                {/* Warning zone - pulsing red */}
-                <mesh
-                    ref={warningRef}
-                    rotation={[-Math.PI / 2, 0, 0]}
-                    position={[0, 0.03, 0]}
-                >
-                    <circleGeometry args={[6, 24]} />
+    // Shelters near the train tracks
+    const tracksShelters = [
+        { pos: [-1, 0, -1], size: [1, 0.7, 1.2] },
+        { pos: [1.2, 0, -0.5], size: [1.2, 0.9, 1] },
+        { pos: [0, 0, 1], size: [1, 0.8, 1.1] },
+        { pos: [-1.5, 0, 1.5], size: [1.1, 0.85, 1] },
+    ]
+
+    const renderShelters = (shelters) =>
+        shelters.map((s, i) => (
+            <group key={i} position={s.pos}>
+                <mesh castShadow position={[0, s.size[1] / 2, 0]}>
+                    <boxGeometry args={s.size} />
                     <meshStandardMaterial
-                        color="#ef4444"
-                        transparent
-                        opacity={0.15}
-                        emissive="#ef4444"
-                        emissiveIntensity={0.3}
+                        color={i % 2 === 0 ? '#6b5b45' : '#5a4a35'}
+                        roughness={0.95}
                     />
                 </mesh>
+                <mesh position={[0, s.size[1], 0]} rotation={[0.1, 0, 0]}>
+                    <boxGeometry args={[s.size[0] + 0.3, 0.05, s.size[2] + 0.3]} />
+                    <meshStandardMaterial color="#7a7a7a" roughness={0.5} metalness={0.3} />
+                </mesh>
+            </group>
+        ))
 
-                {shelters.map((s, i) => (
-                    <group key={i} position={s.pos}>
-                        {/* Shelter */}
-                        <mesh castShadow position={[0, s.size[1] / 2, 0]}>
-                            <boxGeometry args={s.size} />
-                            <meshStandardMaterial
-                                color={i % 2 === 0 ? '#6b5b45' : '#5a4a35'}
-                                roughness={0.95}
-                            />
-                        </mesh>
-                        {/* Corrugated roof */}
-                        <mesh position={[0, s.size[1], 0]} rotation={[0.1, 0, 0]}>
-                            <boxGeometry args={[s.size[0] + 0.3, 0.05, s.size[2] + 0.3]} />
-                            <meshStandardMaterial color="#7a7a7a" roughness={0.5} metalness={0.3} />
-                        </mesh>
-                    </group>
-                ))}
+    return (
+        <group>
+            {/* ===== River cluster ===== */}
+            <group position={RIVER_CENTER}>
+                <group scale={[scale, scale, scale]}>
+                    <mesh
+                        ref={warningRefRiver}
+                        rotation={[-Math.PI / 2, 0, 0]}
+                        position={[0, 0.03, 0]}
+                    >
+                        <circleGeometry args={[4, 24]} />
+                        <meshStandardMaterial
+                            color="#ef4444"
+                            transparent
+                            opacity={0.15}
+                            emissive="#ef4444"
+                            emissiveIntensity={0.3}
+                        />
+                    </mesh>
+                    {renderShelters(riverShelters)}
+                </group>
+            </group>
+
+            {/* ===== Train tracks cluster ===== */}
+            <group position={TRACKS_CENTER}>
+                <group scale={[scale, scale, scale]}>
+                    <mesh
+                        ref={warningRefTracks}
+                        rotation={[-Math.PI / 2, 0, 0]}
+                        position={[0, 0.03, 0]}
+                    >
+                        <circleGeometry args={[4, 24]} />
+                        <meshStandardMaterial
+                            color="#ef4444"
+                            transparent
+                            opacity={0.15}
+                            emissive="#ef4444"
+                            emissiveIntensity={0.3}
+                        />
+                    </mesh>
+                    {renderShelters(tracksShelters)}
+                </group>
             </group>
         </group>
     )
