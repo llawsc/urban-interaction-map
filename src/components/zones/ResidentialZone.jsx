@@ -6,8 +6,8 @@ const CENTER = [-10, 0, 12]
 
 function ResidentialZone() {
     const timeStep = useSimulationStore((s) => s.timeStep)
-    const enrollment = useSimulationStore((s) => s.enrollment)
-    const zones = computeZoneSizes(timeStep, enrollment)
+    const transientPop = useSimulationStore((s) => s.transientPop)
+    const zones = computeZoneSizes(timeStep, transientPop)
     const scale = zones.residential
 
     // Positions relative to CENTER [-10, 0, 12]

@@ -6,8 +6,8 @@ import { computeGentrification } from '../../utils/simulation'
 function HeatmapOverlay() {
     const meshRef = useRef()
     const timeStep = useSimulationStore((s) => s.timeStep)
-    const enrollment = useSimulationStore((s) => s.enrollment)
-    const radius = computeGentrification(timeStep, enrollment)
+    const transientPop = useSimulationStore((s) => s.transientPop)
+    const radius = computeGentrification(timeStep, transientPop)
 
     useFrame((state) => {
         if (!meshRef.current) return

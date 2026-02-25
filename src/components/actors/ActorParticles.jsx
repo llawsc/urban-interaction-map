@@ -26,10 +26,10 @@ function generatePositions(count, center, spread = 4) {
 function ActorGroup({ actor }) {
     const meshRef = useRef()
     const timeStep = useSimulationStore((s) => s.timeStep)
-    const enrollment = useSimulationStore((s) => s.enrollment)
+    const transientPop = useSimulationStore((s) => s.transientPop)
     const visible = useSimulationStore((s) => s.actorVisibility[actor.id])
     const selectedActor = useSimulationStore((s) => s.selectedActor)
-    const populations = computeActorPopulations(timeStep, enrollment)
+    const populations = computeActorPopulations(timeStep, transientPop)
     const assimilation = computeAssimilation(timeStep)
 
     const count = Math.min(200, Math.round(populations[actor.id] / 25))
@@ -38,7 +38,7 @@ function ActorGroup({ actor }) {
     const positions = useMemo(() => generatePositions(count, center, 5), [count, center])
 
     const color = useMemo(() => {
-        // Assimilation effect: ISFs slowly blend toward resident color over time
+        // ISFs slowly blend toward resident color over time (assimilation visual)
         if (actor.id === 'isf') {
             const residentColor = new THREE.Color(ACTOR_MAP.residents.color)
             const isfColor = new THREE.Color(actor.color)

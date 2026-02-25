@@ -22,8 +22,8 @@ function Building({ position, size, color }) {
 
 function CampusZone() {
     const timeStep = useSimulationStore((s) => s.timeStep)
-    const enrollment = useSimulationStore((s) => s.enrollment)
-    const zones = computeZoneSizes(timeStep, enrollment)
+    const transientPop = useSimulationStore((s) => s.transientPop)
+    const zones = computeZoneSizes(timeStep, transientPop)
     const scale = zones.campus
 
     // Positions are relative to CENTER

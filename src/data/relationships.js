@@ -1,63 +1,33 @@
 export const RELATIONSHIPS = [
     {
-        id: 'uplb-students',
-        actors: ['uplb', 'students'],
-        type: 'Accommodation',
-        nature: 'Mixed',
-        color: '#f59e0b',
-        justification:
-            'The limited on-campus housing capacity of UPLB pushes students and faculty to seek housing in the town proper. While this setup allows the institution to continue operating efficiently, it indirectly shifts housing pressure to the local community.',
-        visual: 'Flow of students radiating outward from campus into surrounding residential areas.',
-    },
-    {
-        id: 'students-landowners',
-        actors: ['students', 'landowners'],
+        id: 'transients-vendors',
+        actors: ['transients', 'vendors'],
         type: 'Cooperation',
         nature: 'Positive',
         color: '#10b981',
         justification:
-            'Students and faculty need nearby housing, while private landowners supply rooms and apartments. This mutual dependence sustains the off-campus rental market.',
-        visual: 'Pipeline graphics showing student flow from UPLB gates to private boarding houses.',
+            'Transients rely on nearby vendors for affordable food and daily services, while vendors depend on the consistent transient population to sustain their businesses. This mutual dependence constitutes cooperation.',
+        visual: 'High flow of currency/goods between campus borders and commercial zones.',
     },
     {
-        id: 'students-residents',
-        actors: ['students', 'residents'],
+        id: 'uplb-landowners',
+        actors: ['uplb', 'landowners'],
+        type: 'Accommodation',
+        nature: 'Mixed',
+        color: '#f59e0b',
+        justification:
+            'Due to insufficient on-campus housing, private landowners provide off-campus rentals. The university indirectly benefits from this arrangement without formal coordination, reflecting accommodation rather than cooperation.',
+        visual: 'Flow of students radiating outward from campus into surrounding residential areas.',
+    },
+    {
+        id: 'transients-residents',
+        actors: ['transients', 'residents'],
         type: 'Competition',
-        nature: 'Negative',
-        color: '#f97316',
-        justification:
-            'Students and residents compete for the same housing stock. Students\' ability to pay per-bed rates often drives up rents, disadvantaging long-term residents.',
-        visual: 'Gentrification heatmaps expanding outward, shrinking original residential zones.',
-    },
-    {
-        id: 'landowners-developers',
-        actors: ['landowners', 'developers'],
-        type: 'Amalgamation',
-        nature: 'Positive',
-        color: '#a855f7',
-        justification:
-            'Some private landowners sell or partner with developers, consolidating land for larger housing projects aimed at higher profit.',
-        visual: 'Low-density houses gradually merging and transforming into high-rise structures.',
-    },
-    {
-        id: 'developers-residents',
-        actors: ['developers', 'residents'],
-        type: 'Conflict',
         nature: 'Negative',
         color: '#ef4444',
         justification:
-            'New developments raise land values and property taxes, increasing the risk of displacement among permanent residents.',
-        visual: 'Red warning indicators around residential areas near new developments.',
-    },
-    {
-        id: 'residents-isf',
-        actors: ['residents', 'isf'],
-        type: 'Assimilation',
-        nature: 'Mixed',
-        color: '#3b82f6',
-        justification:
-            'ISFs often integrate socially within barangays, but remain economically marginalized due to insecure tenure.',
-        visual: 'ISF avatars slowly blending into the residential zone color palette over time.',
+            'The influx of transients creates sustained demand for housing and urban space. Since most do not settle permanently, they intensify competition over limited rental units and land, disadvantaging long-term residents.',
+        visual: 'Gentrification heatmaps expanding outward, shrinking original residential zones.',
     },
     {
         id: 'lgu-isf',
@@ -66,46 +36,74 @@ export const RELATIONSHIPS = [
         nature: 'Negative',
         color: '#ef4444',
         justification:
-            'Clearing operations, eviction threats, and relocation policies create sustained tension between authorities and ISFs.',
+            'The LGU enforces zoning laws and disaster-risk regulations that directly oppose the interests of ISFs, resulting in structural conflict and eviction threats.',
         visual: 'Red warning zones and displacement animations near hazard areas.',
     },
     {
-        id: 'lgu-developers',
-        actors: ['lgu', 'developers'],
-        type: 'Cooperation',
+        id: 'landowners-vendors',
+        actors: ['landowners', 'vendors'],
+        type: 'Accommodation',
         nature: 'Mixed',
-        color: '#10b981',
+        color: '#f59e0b',
         justification:
-            'While developers contribute to local revenue and urban growth, zoning flexibility may weaken protections for low-income groups.',
-        visual: 'Gradual replacement of low-density housing with high-rises after permit animations.',
-    },
-    {
-        id: 'vendors-landowners',
-        actors: ['vendors', 'landowners'],
-        type: 'Assimilation',
-        nature: 'Mixed',
-        color: '#3b82f6',
-        justification:
-            'Rising costs of goods and services are normalized and used by landowners to justify rent increases.',
+            'Landowners and vendors coexist through economic adjustment rather than collaboration. Rising commodity prices are tolerated rather than jointly managed.',
         visual: 'Oscillating price indicators above commercial and housing units in sync.',
     },
     {
-        id: 'vendors-students',
-        actors: ['vendors', 'students'],
+        id: 'developers-lgu',
+        actors: ['developers', 'lgu'],
+        type: 'Accommodation',
+        nature: 'Mixed',
+        color: '#f59e0b',
+        justification:
+            'Developers pursue profit-driven projects while the LGU regulates development; compromises via permits and zoning define the relationship.',
+        visual: 'Gradual replacement of low-density housing with high-rises after permit animations.',
+    },
+    {
+        id: 'transients-isf',
+        actors: ['transients', 'isf'],
+        type: 'Accommodation',
+        nature: 'Mixed',
+        color: '#f59e0b',
+        justification:
+            'Transients and ISFs coexist in the same urban space. Transients\' housing and resource use indirectly affects ISFs, but both groups adjust to each other out of necessity.',
+        visual: 'ISF avatars adjusting positions as transient zones expand.',
+    },
+    {
+        id: 'uplb-transients',
+        actors: ['uplb', 'transients'],
+        type: 'Accommodation',
+        nature: 'Mixed',
+        color: '#f59e0b',
+        justification:
+            'The university regulates student enrollment and limited on-campus housing. Transients adapt to these institutional constraints without direct negotiation, reflecting accommodation.',
+        visual: 'Pipeline showing student flow from campus into town proper.',
+    },
+    {
+        id: 'vendors-isf',
+        actors: ['vendors', 'isf'],
         type: 'Cooperation',
         nature: 'Positive',
         color: '#10b981',
         justification:
-            'Students and faculty provide a steady customer base that sustains local micro-enterprises.',
-        visual: 'High flow of currency/goods between campus borders and commercial zones.',
+            'ISFs purchase goods and services from local vendors, while vendors rely on ISFs as part of their customer base. This mutual support constitutes cooperation.',
+        visual: 'Goods flow between commercial strips and informal settlement areas.',
+    },
+    {
+        id: 'developers-landowners',
+        actors: ['developers', 'landowners'],
+        type: 'Cooperation',
+        nature: 'Positive',
+        color: '#10b981',
+        justification:
+            'Developers may buy land from private landowners to build housing or commercial projects. This mutually beneficial arrangement represents cooperation between actors.',
+        visual: 'Low-density houses gradually merging and transforming into high-rise structures.',
     },
 ]
 
 export const INTERACTION_TYPES = {
     Cooperation: { color: '#10b981', label: 'Cooperation', emoji: '🤝' },
     Conflict: { color: '#ef4444', label: 'Conflict', emoji: '⚔️' },
-    Competition: { color: '#f97316', label: 'Competition', emoji: '🏁' },
+    Competition: { color: '#ef4444', label: 'Competition', emoji: '🏁' },
     Accommodation: { color: '#f59e0b', label: 'Accommodation', emoji: '🤞' },
-    Assimilation: { color: '#3b82f6', label: 'Assimilation', emoji: '🔄' },
-    Amalgamation: { color: '#a855f7', label: 'Amalgamation', emoji: '🧬' },
 }

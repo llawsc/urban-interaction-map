@@ -6,8 +6,8 @@ const CENTER = [9, 0, -3]
 
 function CommercialZone() {
     const timeStep = useSimulationStore((s) => s.timeStep)
-    const enrollment = useSimulationStore((s) => s.enrollment)
-    const zones = computeZoneSizes(timeStep, enrollment)
+    const transientPop = useSimulationStore((s) => s.transientPop)
+    const zones = computeZoneSizes(timeStep, transientPop)
     const scale = zones.commercial
 
     // Positions relative to CENTER [9, 0, -3]

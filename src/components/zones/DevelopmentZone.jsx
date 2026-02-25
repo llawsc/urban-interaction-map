@@ -4,8 +4,8 @@ import { computeZoneSizes } from '../../utils/simulation'
 
 function DevelopmentZone() {
     const timeStep = useSimulationStore((s) => s.timeStep)
-    const enrollment = useSimulationStore((s) => s.enrollment)
-    const zones = computeZoneSizes(timeStep, enrollment)
+    const transientPop = useSimulationStore((s) => s.transientPop)
+    const zones = computeZoneSizes(timeStep, transientPop)
     const scale = zones.development
 
     const condos = [

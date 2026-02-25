@@ -5,7 +5,7 @@ import { RELATIONSHIPS } from '../data/relationships'
 const useSimulationStore = create((set, get) => ({
     // Simulation controls
     timeStep: 0,
-    enrollment: 8000,
+    transientPop: 8000,
     isPlaying: false,
 
     // UI state
@@ -25,7 +25,7 @@ const useSimulationStore = create((set, get) => ({
 
     // Actions
     setTimeStep: (val) => set({ timeStep: val }),
-    setEnrollment: (val) => set({ enrollment: val }),
+    setTransientPop: (val) => set({ transientPop: val }),
     togglePlay: () => set((s) => ({ isPlaying: !s.isPlaying })),
     stopPlay: () => set({ isPlaying: false }),
     toggleUI: () => set((s) => ({ isUIHidden: !s.isUIHidden })),

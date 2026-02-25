@@ -45,9 +45,9 @@ function PriceTag({ position, value, label, color }) {
 
 function PriceIndicators() {
     const timeStep = useSimulationStore((s) => s.timeStep)
-    const enrollment = useSimulationStore((s) => s.enrollment)
-    const rent = computeRent(timeStep, enrollment)
-    const mealPrice = computeVendorPrices(timeStep, enrollment)
+    const transientPop = useSimulationStore((s) => s.transientPop)
+    const rent = computeRent(timeStep, transientPop)
+    const mealPrice = computeVendorPrices(timeStep, transientPop)
 
     return (
         <group>

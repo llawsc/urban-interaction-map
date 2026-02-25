@@ -4,12 +4,12 @@ import { computeEconomicStats } from '../../utils/simulation'
 
 function SimulationControls() {
     const timeStep = useSimulationStore((s) => s.timeStep)
-    const enrollment = useSimulationStore((s) => s.enrollment)
+    const transientPop = useSimulationStore((s) => s.transientPop)
     const isPlaying = useSimulationStore((s) => s.isPlaying)
     const setTimeStep = useSimulationStore((s) => s.setTimeStep)
-    const setEnrollment = useSimulationStore((s) => s.setEnrollment)
+    const setTransientPop = useSimulationStore((s) => s.setTransientPop)
     const togglePlay = useSimulationStore((s) => s.togglePlay)
-    const stats = computeEconomicStats(timeStep, enrollment)
+    const stats = computeEconomicStats(timeStep, transientPop)
 
     return (
         <div className="glass-panel" style={{
@@ -84,14 +84,14 @@ function SimulationControls() {
                     </div>
                 </div>
 
-                {/* Enrollment slider */}
+                {/* Transient Population Flow slider */}
                 <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                         <label style={{ fontSize: '10px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-text-secondary)' }}>
-                            🎓 UPLB Enrollment
+                            🎓 Transient Population Flow
                         </label>
                         <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--color-accent-light)' }}>
-                            {enrollment.toLocaleString()}
+                            {transientPop.toLocaleString()}
                         </span>
                     </div>
                     <input
@@ -100,8 +100,8 @@ function SimulationControls() {
                         min="1000"
                         max="15000"
                         step="500"
-                        value={enrollment}
-                        onChange={(e) => setEnrollment(Number(e.target.value))}
+                        value={transientPop}
+                        onChange={(e) => setTransientPop(Number(e.target.value))}
                     />
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
                         <span style={{ fontSize: '9px', color: 'var(--color-text-secondary)' }}>1K</span>
