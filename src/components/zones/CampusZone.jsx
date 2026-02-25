@@ -2,7 +2,9 @@ import { useMemo, memo } from 'react'
 import useSimulationStore from '../../store/useSimulationStore'
 import { computeZoneSizes } from '../../utils/simulation'
 
-function Building({ position, size, color, label }) {
+const CENTER = [-12, 0, -9]
+
+function Building({ position, size, color }) {
     return (
         <group position={position}>
             <mesh castShadow receiveShadow position={[0, size[1] / 2, 0]}>
@@ -24,49 +26,52 @@ function CampusZone() {
     const zones = computeZoneSizes(timeStep, enrollment)
     const scale = zones.campus
 
+    // Positions are relative to CENTER
     const buildings = useMemo(
         () => [
-            { pos: [-12, 0, -8], size: [4, 3, 5], color: '#8b7355' },
-            { pos: [-8, 0, -12], size: [3, 2.5, 4], color: '#9b8365' },
-            { pos: [-14, 0, -13], size: [3.5, 2, 3.5], color: '#7a6245' },
-            { pos: [-10, 0, -6], size: [2.5, 4, 3], color: '#8b7355' },
-            { pos: [-16, 0, -9], size: [3, 2.5, 4], color: '#9b8365' },
-            { pos: [-13, 0, -5], size: [2, 1.8, 2.5], color: '#7a6245' },
+            { pos: [0, 0, 1], size: [4, 3, 5], color: '#8b7355' },
+            { pos: [4, 0, -3], size: [3, 2.5, 4], color: '#9b8365' },
+            { pos: [-2, 0, -4], size: [3.5, 2, 3.5], color: '#7a6245' },
+            { pos: [2, 0, 3], size: [2.5, 4, 3], color: '#8b7355' },
+            { pos: [-4, 0, 0], size: [3, 2.5, 4], color: '#9b8365' },
+            { pos: [-1, 0, 4], size: [2, 1.8, 2.5], color: '#7a6245' },
         ],
         []
     )
 
     return (
-        <group scale={[scale, 1, scale]}>
-            {/* Campus base marker */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-12, 0.02, -9]}>
-                <circleGeometry args={[9, 32]} />
-                <meshStandardMaterial
-                    color="#3a5a3a"
-                    roughness={0.9}
-                    transparent
-                    opacity={0.5}
-                />
-            </mesh>
+        <group position={CENTER}>
+            <group scale={[scale, 1, scale]}>
+                {/* Campus base marker */}
+                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
+                    <circleGeometry args={[9, 32]} />
+                    <meshStandardMaterial
+                        color="#3a5a3a"
+                        roughness={0.9}
+                        transparent
+                        opacity={0.5}
+                    />
+                </mesh>
 
-            {buildings.map((b, i) => (
-                <Building key={i} position={b.pos} size={b.size} color={b.color} />
-            ))}
+                {buildings.map((b, i) => (
+                    <Building key={i} position={b.pos} size={b.size} color={b.color} />
+                ))}
 
-            {/* UPLB Gate marker */}
-            <group position={[-8, 0, -3]}>
-                <mesh position={[-0.8, 1.5, 0]} castShadow>
-                    <boxGeometry args={[0.3, 3, 0.3]} />
-                    <meshStandardMaterial color="#d4a574" />
-                </mesh>
-                <mesh position={[0.8, 1.5, 0]} castShadow>
-                    <boxGeometry args={[0.3, 3, 0.3]} />
-                    <meshStandardMaterial color="#d4a574" />
-                </mesh>
-                <mesh position={[0, 3, 0]}>
-                    <boxGeometry args={[2, 0.3, 0.3]} />
-                    <meshStandardMaterial color="#d4a574" />
-                </mesh>
+                {/* UPLB Gate marker */}
+                <group position={[4, 0, 6]}>
+                    <mesh position={[-0.8, 1.5, 0]} castShadow>
+                        <boxGeometry args={[0.3, 3, 0.3]} />
+                        <meshStandardMaterial color="#d4a574" />
+                    </mesh>
+                    <mesh position={[0.8, 1.5, 0]} castShadow>
+                        <boxGeometry args={[0.3, 3, 0.3]} />
+                        <meshStandardMaterial color="#d4a574" />
+                    </mesh>
+                    <mesh position={[0, 3, 0]}>
+                        <boxGeometry args={[2, 0.3, 0.3]} />
+                        <meshStandardMaterial color="#d4a574" />
+                    </mesh>
+                </group>
             </group>
         </group>
     )
