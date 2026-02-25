@@ -6,14 +6,14 @@ import { ACTOR_MAP } from '../../data/actors'
 import { RELATIONSHIPS } from '../../data/relationships'
 
 const ZONE_CENTERS = {
-    students: [-12, 2, -9],
+    uplb: [-14, 2, -10],
+    students: [-10, 2, -7],
     vendors: [9, 2, -3],
     lgu: [9, 2, -5],
     isf: [17.5, 2, 11],
     residents: [-2, 2, 12],
     landowners: [-4, 2, 10],
     developers: [10, 2, 10],
-    transients: [-10, 2, -7],
 }
 
 function ConnectionBeam({ relationship }) {

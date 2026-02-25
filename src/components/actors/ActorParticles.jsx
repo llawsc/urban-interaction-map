@@ -38,11 +38,11 @@ function ActorGroup({ actor }) {
     const positions = useMemo(() => generatePositions(count, center, 5), [count, center])
 
     const color = useMemo(() => {
-        // Assimilation effect: transients shift toward resident color over time
-        if (actor.id === 'transients') {
+        // Assimilation effect: ISFs slowly blend toward resident color over time
+        if (actor.id === 'isf') {
             const residentColor = new THREE.Color(ACTOR_MAP.residents.color)
-            const transientColor = new THREE.Color(actor.color)
-            return transientColor.lerp(residentColor, assimilation * 0.6)
+            const isfColor = new THREE.Color(actor.color)
+            return isfColor.lerp(residentColor, assimilation * 0.5)
         }
         return new THREE.Color(actor.color)
     }, [actor.id, actor.color, assimilation])

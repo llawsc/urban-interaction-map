@@ -1,23 +1,23 @@
 export const RELATIONSHIPS = [
     {
-        id: 'students-vendors',
-        actors: ['students', 'vendors'],
+        id: 'uplb-students',
+        actors: ['uplb', 'students'],
+        type: 'Accommodation',
+        nature: 'Mixed',
+        color: '#f59e0b',
+        justification:
+            'The limited on-campus housing capacity of UPLB pushes students and faculty to seek housing in the town proper. While this setup allows the institution to continue operating efficiently, it indirectly shifts housing pressure to the local community.',
+        visual: 'Flow of students radiating outward from campus into surrounding residential areas.',
+    },
+    {
+        id: 'students-landowners',
+        actors: ['students', 'landowners'],
         type: 'Cooperation',
         nature: 'Positive',
         color: '#10b981',
         justification:
-            'Symbiotic economic survival. Students need cheap food and goods, and vendors rely on the massive student volume for daily income.',
-        visual: 'High flow of currency/goods between campus borders and commercial zones.',
-    },
-    {
-        id: 'lgu-isf',
-        actors: ['lgu', 'isf'],
-        type: 'Conflict',
-        nature: 'Negative',
-        color: '#ef4444',
-        justification:
-            'LGU enforces zoning laws and disaster risk reduction, leading to the constant threat of eviction for ISFs living on creeks or railways.',
-        visual: 'Red warning zones and displacement animations near hazard areas.',
+            'Students and faculty need nearby housing, while private landowners supply rooms and apartments. This mutual dependence sustains the off-campus rental market.',
+        visual: 'Pipeline graphics showing student flow from UPLB gates to private boarding houses.',
     },
     {
         id: 'students-residents',
@@ -26,58 +26,78 @@ export const RELATIONSHIPS = [
         nature: 'Negative',
         color: '#f97316',
         justification:
-            'Both groups compete for the same limited local space. Students\' higher combined purchasing power ("per bed" rates) prices locals out of their own town.',
+            'Students and residents compete for the same housing stock. Students\' ability to pay per-bed rates often drives up rents, disadvantaging long-term residents.',
         visual: 'Gentrification heatmaps expanding outward, shrinking original residential zones.',
     },
     {
-        id: 'landowners-vendors',
-        actors: ['landowners', 'vendors'],
-        type: 'Accommodation',
-        nature: 'Mixed',
-        color: '#f59e0b',
+        id: 'landowners-developers',
+        actors: ['landowners', 'developers'],
+        type: 'Amalgamation',
+        nature: 'Positive',
+        color: '#a855f7',
         justification:
-            'A tense truce. As vendors raise food prices to survive, landowners use the rising cost of living as a justification to hike rent, creating a localized inflation loop. They tolerate each other out of economic necessity.',
-        visual: 'Oscillating price indicators above commercial and housing units.',
+            'Some private landowners sell or partner with developers, consolidating land for larger housing projects aimed at higher profit.',
+        visual: 'Low-density houses gradually merging and transforming into high-rise structures.',
     },
     {
-        id: 'developers-lgu',
-        actors: ['developers', 'lgu'],
-        type: 'Accommodation',
-        nature: 'Mixed',
-        color: '#f59e0b',
+        id: 'developers-residents',
+        actors: ['developers', 'residents'],
+        type: 'Conflict',
+        nature: 'Negative',
+        color: '#ef4444',
         justification:
-            'Developers want to build high-profit condos; LGUs want organized development and tax revenue but must manage local complaints. They reach compromises through zoning permits.',
-        visual: 'Gradual replacement of low-density housing with high-rises after "permit" animations.',
+            'New developments raise land values and property taxes, increasing the risk of displacement among permanent residents.',
+        visual: 'Red warning indicators around residential areas near new developments.',
     },
     {
-        id: 'transients-landowners',
-        actors: ['transients', 'landowners'],
+        id: 'residents-isf',
+        actors: ['residents', 'isf'],
+        type: 'Assimilation',
+        nature: 'Mixed',
+        color: '#3b82f6',
+        justification:
+            'ISFs often integrate socially within barangays, but remain economically marginalized due to insecure tenure.',
+        visual: 'ISF avatars slowly blending into the residential zone color palette over time.',
+    },
+    {
+        id: 'lgu-isf',
+        actors: ['lgu', 'isf'],
+        type: 'Conflict',
+        nature: 'Negative',
+        color: '#ef4444',
+        justification:
+            'Clearing operations, eviction threats, and relocation policies create sustained tension between authorities and ISFs.',
+        visual: 'Red warning zones and displacement animations near hazard areas.',
+    },
+    {
+        id: 'lgu-developers',
+        actors: ['lgu', 'developers'],
+        type: 'Cooperation',
+        nature: 'Mixed',
+        color: '#10b981',
+        justification:
+            'While developers contribute to local revenue and urban growth, zoning flexibility may weaken protections for low-income groups.',
+        visual: 'Gradual replacement of low-density housing with high-rises after permit animations.',
+    },
+    {
+        id: 'vendors-landowners',
+        actors: ['vendors', 'landowners'],
+        type: 'Assimilation',
+        nature: 'Mixed',
+        color: '#3b82f6',
+        justification:
+            'Rising costs of goods and services are normalized and used by landowners to justify rent increases.',
+        visual: 'Oscillating price indicators above commercial and housing units in sync.',
+    },
+    {
+        id: 'vendors-students',
+        actors: ['vendors', 'students'],
         type: 'Cooperation',
         nature: 'Positive',
         color: '#10b981',
         justification:
-            'UPLB relies on landowners to act as a "shadow dormitory" system due to their own lack of campus housing. Landowners rely on UPLB\'s enrollment for guaranteed customers.',
-        visual: 'Pipeline graphics showing student flow directly from UPLB gates to private boarding houses.',
-    },
-    {
-        id: 'transients-residents',
-        actors: ['transients', 'residents'],
-        type: 'Assimilation',
-        nature: 'Positive',
-        color: '#3b82f6',
-        justification:
-            'Over time, transient faculty and long-term students settle in Los Baños permanently, adopting local customs, buying property, and becoming part of the local demographic.',
-        visual: 'Transient avatars slowly changing color to match Permanent Resident avatars over the simulation timeline.',
-    },
-    {
-        id: 'all-transients-locals',
-        actors: ['students', 'residents'],
-        type: 'Amalgamation',
-        nature: 'Mixed',
-        color: '#a855f7',
-        justification:
-            'The biological and cultural blending of the university population with the provincial population over decades creates the unique "Elbi" subculture—a hybrid town identity that is neither purely rural nor entirely urban.',
-        visual: 'Generation of a new hybrid "actor" class over long simulation periods.',
+            'Students and faculty provide a steady customer base that sustains local micro-enterprises.',
+        visual: 'High flow of currency/goods between campus borders and commercial zones.',
     },
 ]
 

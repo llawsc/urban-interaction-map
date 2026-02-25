@@ -40,14 +40,14 @@ export function computeActorPopulations(timeStep, enrollment) {
     const enrollFactor = enrollment / 8000
 
     return {
-        students: Math.round(5000 * enrollFactor),
+        uplb: 300,
+        students: Math.round(6500 * enrollFactor),
         vendors: Math.round(1200 * (1 + t * 0.4 * enrollFactor)),
         lgu: 200,
         isf: Math.round(800 * Math.max(0.15, 1 - t * 0.7)),
         residents: Math.round(3000 * Math.max(0.5, 1 - t * 0.3 * enrollFactor)),
         landowners: Math.round(500 * (1 + t * 0.5)),
         developers: Math.round(100 * (1 + t * 2.0)),
-        transients: Math.round(1500 * enrollFactor * (1 + t * 0.3)),
     }
 }
 
